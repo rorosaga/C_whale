@@ -1,6 +1,6 @@
-#line 1 "lex.yy.c"
+#line 1 "lexer.c"
 
-#line 3 "lex.yy.c"
+#line 3 "lexer.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -164,8 +164,27 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                yy_size_t yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -547,6 +566,13 @@ static const flex_int16_t yy_chk[254] =
       198,  198,  198
     } ;
 
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[43] =
+    {   0,
+0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    1, 0, 0,     };
+
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
@@ -565,15 +591,13 @@ char *yytext;
 #line 2 "scanner.lex"
     #include <stdio.h>
     #include <string.h>
-    #include <parser.tab.h>
+    #include "parser.h"
 
     #define OPEN_BRACE 1
     #define CLOSE_BRACE 2
     #define ARROW 3
     #define COLON 4
     #define SEMI 5
-    #define STRING_LITERAL 6
-    #define ORCA 7
     #define BELUGA 8
     #define DOLPHIN 9
     #define BLUEWHALE 10
@@ -584,22 +608,17 @@ char *yytext;
     #define SYSTEM_INFO 15
     #define ALL 16
     #define FORCE 17
-    #define RUN 18
     #define STOP 19
     #define REMOVE 20
     #define INSPECT 21
     #define LIST 22
     #define CREATE 23
-    #define REMOVE_BASE 24
-    #define ENV 25
-    #define COPY 26
-    #define EXPOSE 27 
+    #define REMOVE_BASE 24 
     #define PORT 28
     #define FROM 29
     #define VOLUME 30
     #define DETACH 31
     #define MEMORY 32
-    #define BASE 33
     #define COMMANDS 35
     #define EXPOSED 36
     #define CONTAINERS 37
@@ -608,8 +627,8 @@ char *yytext;
     #define VOLUMES 40
 
     void comment();
-#line 611 "lex.yy.c"
-#line 612 "lex.yy.c"
+#line 630 "lexer.c"
+#line 631 "lexer.c"
 
 #define INITIAL 0
 
@@ -826,10 +845,10 @@ YY_DECL
 		}
 
 	{
-#line 51 "scanner.lex"
+#line 45 "scanner.lex"
 
 
-#line 832 "lex.yy.c"
+#line 851 "lexer.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -875,6 +894,16 @@ yy_find_action:
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			yy_size_t yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
+
 do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
@@ -888,217 +917,217 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 53 "scanner.lex"
+#line 47 "scanner.lex"
 { printf("Open Brace\n"); return OPEN_BRACE; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 54 "scanner.lex"
+#line 48 "scanner.lex"
 { printf("Close Brace\n"); return CLOSE_BRACE; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 55 "scanner.lex"
+#line 49 "scanner.lex"
 { printf("Arrow\n"); return ARROW; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 56 "scanner.lex"
+#line 50 "scanner.lex"
 { printf("Colon\n"); return COLON; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 57 "scanner.lex"
+#line 51 "scanner.lex"
 { printf("Semicolon\n"); return SEMI; }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 58 "scanner.lex"
+#line 52 "scanner.lex"
 { yylval.strVal = strdup(yytext); return STRING_LITERAL; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 60 "scanner.lex"
+#line 54 "scanner.lex"
 { printf("Keyword: orca\n"); return ORCA; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 61 "scanner.lex"
+#line 55 "scanner.lex"
 { printf("Keyword: beluga\n"); return BELUGA; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 62 "scanner.lex"
+#line 56 "scanner.lex"
 { printf("Keyword: dolphin\n"); return DOLPHIN; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 63 "scanner.lex"
+#line 57 "scanner.lex"
 { printf("Keyword: bluewhale\n"); return BLUEWHALE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 65 "scanner.lex"
+#line 59 "scanner.lex"
 { printf("Action: prune_images\n"); return PRUNE_IMAGES; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 66 "scanner.lex"
+#line 60 "scanner.lex"
 { printf("Action: prune_containers\n"); return PRUNE_CONTAINERS; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 67 "scanner.lex"
+#line 61 "scanner.lex"
 { printf("Action: prune_volumes\n"); return PRUNE_VOLUMES; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 68 "scanner.lex"
+#line 62 "scanner.lex"
 { printf("Action: prune_networks\n"); return PRUNE_NETWORKS; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 69 "scanner.lex"
+#line 63 "scanner.lex"
 { printf("Action: system_info\n"); return SYSTEM_INFO; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 71 "scanner.lex"
+#line 65 "scanner.lex"
 { printf("Option: all\n"); return ALL; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 72 "scanner.lex"
+#line 66 "scanner.lex"
 { printf("Option: force\n"); return FORCE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 74 "scanner.lex"
+#line 68 "scanner.lex"
 { printf("Action: containers\n"); return CONTAINERS; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 75 "scanner.lex"
+#line 69 "scanner.lex"
 { printf("Action: images\n"); return IMAGES; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 76 "scanner.lex"
+#line 70 "scanner.lex"
 { printf("Action: networks\n"); return NETWORKS; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 77 "scanner.lex"
+#line 71 "scanner.lex"
 { printf("Action: volumes\n"); return VOLUMES; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 79 "scanner.lex"
+#line 73 "scanner.lex"
 { printf("Action: run\n"); return RUN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 80 "scanner.lex"
+#line 74 "scanner.lex"
 { printf("Action: stop\n"); return STOP; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 81 "scanner.lex"
+#line 75 "scanner.lex"
 { printf("Action: remove\n"); return REMOVE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 82 "scanner.lex"
+#line 76 "scanner.lex"
 { printf("Action: inspect\n"); return INSPECT; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 84 "scanner.lex"
+#line 78 "scanner.lex"
 { printf("Option: from\n"); return FROM;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 85 "scanner.lex"
+#line 79 "scanner.lex"
 { printf("Option: port\n"); return PORT;} 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 86 "scanner.lex"
+#line 80 "scanner.lex"
 { printf("Option: volume\n"); return VOLUME;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 87 "scanner.lex"
+#line 81 "scanner.lex"
 { printf("Option: detach\n"); return DETACH;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 88 "scanner.lex"
+#line 82 "scanner.lex"
 { printf("Option: memory\n"); return MEMORY;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 90 "scanner.lex"
+#line 84 "scanner.lex"
 { printf("Action: create\n"); return CREATE; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 91 "scanner.lex"
+#line 85 "scanner.lex"
 { printf("Action: remove_base\n"); return REMOVE_BASE; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 93 "scanner.lex"
+#line 87 "scanner.lex"
 { printf("Option: base\n"); return BASE;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 94 "scanner.lex"
+#line 88 "scanner.lex"
 { printf("Option: commands\n"); return COMMANDS;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 95 "scanner.lex"
+#line 89 "scanner.lex"
 { printf("Option: exposes\n"); return EXPOSED;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 97 "scanner.lex"
+#line 91 "scanner.lex"
 { printf("Action: list\n"); return LIST; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 99 "scanner.lex"
+#line 93 "scanner.lex"
 { printf("Option: env\n"); return ENV; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 101 "scanner.lex"
+#line 95 "scanner.lex"
 { /* Single line comment - consume and ignore */ }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 102 "scanner.lex"
+#line 96 "scanner.lex"
 { comment(); }
 	YY_BREAK
 case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
-#line 105 "scanner.lex"
+#line 99 "scanner.lex"
 { /* Ignore whitespace */ }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 106 "scanner.lex"
+#line 100 "scanner.lex"
 { printf("Unrecognized character: %s\n", yytext); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 109 "scanner.lex"
+#line 103 "scanner.lex"
 ECHO;
 	YY_BREAK
-#line 1101 "lex.yy.c"
+#line 1130 "lexer.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1466,6 +1495,10 @@ static int yy_get_next_buffer (void)
 
 	*--yy_cp = (char) c;
 
+    if ( c == '\n' ){
+        --yylineno;
+    }
+
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
@@ -1542,6 +1575,11 @@ static int yy_get_next_buffer (void)
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -2009,6 +2047,9 @@ static int yy_init_globals (void)
      * This function is called from yylex_destroy(), so don't allocate here.
      */
 
+    /* We do not touch yylineno unless the option is enabled. */
+    yylineno =  1;
+    
     (yy_buffer_stack) = NULL;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
@@ -2103,7 +2144,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 109 "scanner.lex"
+#line 103 "scanner.lex"
 
 
 void comment() {
@@ -2113,14 +2154,5 @@ void comment() {
             break;
         }
     }
-}
-
-
-int main() {
-    int token;
-    while ((token = yylex()) != 0) {
-        printf("Token: %d\n", token);
-    }
-    return 0;
 }
 

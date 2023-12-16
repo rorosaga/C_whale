@@ -1,14 +1,13 @@
 %{
-   #include <stdio.h>
+    #include <stdio.h>
     #include <string.h>
+    #include "parser.h"
 
     #define OPEN_BRACE 1
     #define CLOSE_BRACE 2
     #define ARROW 3
     #define COLON 4
     #define SEMI 5
-    #define STRING_LITERAL 6
-    #define ORCA 7
     #define BELUGA 8
     #define DOLPHIN 9
     #define BLUEWHALE 10
@@ -19,22 +18,17 @@
     #define SYSTEM_INFO 15
     #define ALL 16
     #define FORCE 17
-    #define RUN 18
     #define STOP 19
     #define REMOVE 20
     #define INSPECT 21
     #define LIST 22
     #define CREATE 23
-    #define REMOVE_BASE 24
-    #define ENV 25
-    #define COPY 26
-    #define EXPOSE 27 
+    #define REMOVE_BASE 24 
     #define PORT 28
     #define FROM 29
     #define VOLUME 30
     #define DETACH 31
     #define MEMORY 32
-    #define BASE 33
     #define COMMANDS 35
     #define EXPOSED 36
     #define CONTAINERS 37
@@ -45,6 +39,7 @@
     void comment();
 %}
 
+%option yylineno
 %option noyywrap
 
 %%
@@ -54,7 +49,7 @@
 "->"                   { printf("Arrow\n"); return ARROW; }
 ":"                    { printf("Colon\n"); return COLON; }
 ";"                    { printf("Semicolon\n"); return SEMI; }
-\"(\\.|[^"\\])*\"           { printf("String Literal: %s\n", yytext); return STRING_LITERAL; }
+\"(\\.|[^"\\])*\"      { yylval.strVal = strdup(yytext); return STRING_LITERAL; }
 
 "orca"                 { printf("Keyword: orca\n"); return ORCA; }
 "beluga"               { printf("Keyword: beluga\n"); return BELUGA; }
@@ -114,13 +109,4 @@ void comment() {
             break;
         }
     }
-}
-
-
-int main() {
-    int token;
-    while ((token = yylex()) != 0) {
-        printf("Token: %d\n", token);
-    }
-    return 0;
 }
