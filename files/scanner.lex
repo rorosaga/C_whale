@@ -41,6 +41,7 @@
     #define IMAGES 38
     #define NETWORKS 39
     #define VOLUMES 40
+    #define LABEL 41
 
     void comment();
 %}
@@ -85,12 +86,14 @@
 "volume"               { printf("Option: volume\n"); return VOLUME;}
 "detach"               { printf("Option: detach\n"); return DETACH;}
 "memory"               { printf("Option: memory\n"); return MEMORY;}
+"label"                { printf("Option: label\n"); return LABEL;}
 
 "create"               { printf("Action: create\n"); return CREATE; }
 "remove_img"               { printf("Action: remove_base\n"); return REMOVE_BASE; }
 
 "base"                 { printf("Option: base\n"); return BASE;}
 "commands"             { printf("Option: commands\n"); return COMMANDS;}
+"expose"               { printf("Option: expose\n"); return EXPOSE;}
 "exposes"              { printf("Option: exposes\n"); return EXPOSED;}
 
 "list"                 { printf("Action: list\n"); return LIST; }
