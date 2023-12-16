@@ -39,33 +39,47 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     ORCA = 258,
-     STRING_LITERAL = 259,
-     RUN = 260,
-     BASE = 261,
-     ENV = 262
+     DOLPHIN = 258,
+     CLOSE_BRACE = 259,
+     OPEN_BRACE = 260,
+     SEMI = 261,
+     LIST_IMAGES = 262,
+     REMOVE_IMAGES = 263,
+     LIST_CONTAINERS = 264,
+     REMOVE_CONTAINERS = 265,
+     STRING_LITERAL = 266,
+     RUN = 267,
+     BASE = 268,
+     ENV = 269
    };
 #endif
 /* Tokens.  */
-#define ORCA 258
-#define STRING_LITERAL 259
-#define RUN 260
-#define BASE 261
-#define ENV 262
+#define DOLPHIN 258
+#define CLOSE_BRACE 259
+#define OPEN_BRACE 260
+#define SEMI 261
+#define LIST_IMAGES 262
+#define REMOVE_IMAGES 263
+#define LIST_CONTAINERS 264
+#define REMOVE_CONTAINERS 265
+#define STRING_LITERAL 266
+#define RUN 267
+#define BASE 268
+#define ENV 269
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 20 "parser.y"
+#line 26 "parser.y"
 {
     char* strVal;
     int intVal;
     // Add other types as needed
 }
 /* Line 1529 of yacc.c.  */
-#line 69 "parser.h"
+#line 83 "parser.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

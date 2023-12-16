@@ -3,13 +3,9 @@
     #include <string.h>
     #include "parser.h"
 
-    #define OPEN_BRACE 1
-    #define CLOSE_BRACE 2
     #define ARROW 3
     #define COLON 4
-    #define SEMI 5
     #define BELUGA 8
-    #define DOLPHIN 9
     #define BLUEWHALE 10
     #define PRUNE_IMAGES 11
     #define PRUNE_CONTAINERS 12
@@ -35,6 +31,7 @@
     #define IMAGES 38
     #define NETWORKS 39
     #define VOLUMES 40
+    #define ORCA 41
 
     void comment();
 %}
@@ -88,7 +85,10 @@
 "commands"             { printf("Option: commands\n"); return COMMANDS;}
 "exposes"              { printf("Option: exposes\n"); return EXPOSED;}
 
-"list"                 { printf("Action: list\n"); return LIST; }
+"list_images"          { return LIST_IMAGES; }
+"remove_images"         { return REMOVE_IMAGES; }
+"list_containers"       { return LIST_CONTAINERS; }
+"remove_containers"     { return REMOVE_CONTAINERS; }
 
 "env"                  { printf("Option: env\n"); return ENV; }
 

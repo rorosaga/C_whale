@@ -8,14 +8,20 @@ extern int yylex();
 extern char* yytext;
 void yyerror(const char *s) { fprintf(stderr, "Error at line %d: %s\n", yylineno, s); }
 
-void executeDockerCommand() {
-    printf("Executing Docker Command: docker pull ubuntu\n");
-    system("docker pull ubuntu");
+void executeDockerCommand(const char *command) {
+    printf("Executing Docker Command: %s\n", command);
+    fflush(stdout);  // Flush the stdout buffer
+    int status = system(command);
+    if (status == -1) {
+        printf("Failed to execute command: %s\n", command);
+    }
 }
 
 %}
 
-%token ORCA
+%token DOLPHIN CLOSE_BRACE OPEN_BRACE SEMI
+%token LIST_IMAGES REMOVE_IMAGES LIST_CONTAINERS REMOVE_CONTAINERS
+
 
 %union {
     char* strVal;
@@ -24,14 +30,19 @@ void executeDockerCommand() {
 }
 
 %token<strVal> STRING_LITERAL
-%token<intVal> RUN BASE ENV
+%token<intVal> RUN BASE ENV 
+
 
 %%
-
 commands:
-    ORCA { executeDockerCommand(); }
-    ;
+    DOLPHIN OPEN_BRACE dolphin_action CLOSE_BRACE SEMI commands
+    | DOLPHIN OPEN_BRACE dolphin_action CLOSE_BRACE SEMI;
 
+dolphin_action:
+    LIST_IMAGES SEMI { executeDockerCommand("docker images"); }
+    | LIST_CONTAINERS SEMI { executeDockerCommand("docker ps -a"); }
+    | REMOVE_IMAGES SEMI { executeDockerCommand("docker rmi $(docker images -q)"); }
+    | REMOVE_CONTAINERS SEMI { executeDockerCommand("docker rm $(docker ps -a -q)"); };
 %%
 
 int main() {
