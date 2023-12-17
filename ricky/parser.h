@@ -39,47 +39,65 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     DOLPHIN = 258,
-     CLOSE_BRACE = 259,
-     OPEN_BRACE = 260,
-     SEMI = 261,
-     LIST_IMAGES = 262,
-     REMOVE_IMAGES = 263,
-     LIST_CONTAINERS = 264,
-     REMOVE_CONTAINERS = 265,
-     STRING_LITERAL = 266,
-     RUN = 267,
-     BASE = 268,
-     ENV = 269
+     CLOSE_BRACE = 258,
+     OPEN_BRACE = 259,
+     SEMI = 260,
+     ARROW = 261,
+     DOLPHIN = 262,
+     BLUEWHALE = 263,
+     BELUGA = 264,
+     ORCA = 265,
+     LIST_IMAGES = 266,
+     REMOVE_IMAGES = 267,
+     LIST_CONTAINERS = 268,
+     REMOVE_CONTAINERS = 269,
+     FROM = 270,
+     WHERE = 271,
+     COMMANDS = 272,
+     IMAGE_NAME = 273,
+     CREATE = 274,
+     STRING_LITERAL = 275,
+     RUN = 276,
+     BASE = 277,
+     ENV = 278
    };
 #endif
 /* Tokens.  */
-#define DOLPHIN 258
-#define CLOSE_BRACE 259
-#define OPEN_BRACE 260
-#define SEMI 261
-#define LIST_IMAGES 262
-#define REMOVE_IMAGES 263
-#define LIST_CONTAINERS 264
-#define REMOVE_CONTAINERS 265
-#define STRING_LITERAL 266
-#define RUN 267
-#define BASE 268
-#define ENV 269
+#define CLOSE_BRACE 258
+#define OPEN_BRACE 259
+#define SEMI 260
+#define ARROW 261
+#define DOLPHIN 262
+#define BLUEWHALE 263
+#define BELUGA 264
+#define ORCA 265
+#define LIST_IMAGES 266
+#define REMOVE_IMAGES 267
+#define LIST_CONTAINERS 268
+#define REMOVE_CONTAINERS 269
+#define FROM 270
+#define WHERE 271
+#define COMMANDS 272
+#define IMAGE_NAME 273
+#define CREATE 274
+#define STRING_LITERAL 275
+#define RUN 276
+#define BASE 277
+#define ENV 278
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 26 "parser.y"
+#line 59 "parser.y"
 {
     char* strVal;
     int intVal;
     // Add other types as needed
 }
 /* Line 1529 of yacc.c.  */
-#line 83 "parser.h"
+#line 101 "parser.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -66,33 +66,51 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     DOLPHIN = 258,
-     CLOSE_BRACE = 259,
-     OPEN_BRACE = 260,
-     SEMI = 261,
-     LIST_IMAGES = 262,
-     REMOVE_IMAGES = 263,
-     LIST_CONTAINERS = 264,
-     REMOVE_CONTAINERS = 265,
-     STRING_LITERAL = 266,
-     RUN = 267,
-     BASE = 268,
-     ENV = 269
+     CLOSE_BRACE = 258,
+     OPEN_BRACE = 259,
+     SEMI = 260,
+     ARROW = 261,
+     DOLPHIN = 262,
+     BLUEWHALE = 263,
+     BELUGA = 264,
+     ORCA = 265,
+     LIST_IMAGES = 266,
+     REMOVE_IMAGES = 267,
+     LIST_CONTAINERS = 268,
+     REMOVE_CONTAINERS = 269,
+     FROM = 270,
+     WHERE = 271,
+     COMMANDS = 272,
+     IMAGE_NAME = 273,
+     CREATE = 274,
+     STRING_LITERAL = 275,
+     RUN = 276,
+     BASE = 277,
+     ENV = 278
    };
 #endif
 /* Tokens.  */
-#define DOLPHIN 258
-#define CLOSE_BRACE 259
-#define OPEN_BRACE 260
-#define SEMI 261
-#define LIST_IMAGES 262
-#define REMOVE_IMAGES 263
-#define LIST_CONTAINERS 264
-#define REMOVE_CONTAINERS 265
-#define STRING_LITERAL 266
-#define RUN 267
-#define BASE 268
-#define ENV 269
+#define CLOSE_BRACE 258
+#define OPEN_BRACE 259
+#define SEMI 260
+#define ARROW 261
+#define DOLPHIN 262
+#define BLUEWHALE 263
+#define BELUGA 264
+#define ORCA 265
+#define LIST_IMAGES 266
+#define REMOVE_IMAGES 267
+#define LIST_CONTAINERS 268
+#define REMOVE_CONTAINERS 269
+#define FROM 270
+#define WHERE 271
+#define COMMANDS 272
+#define IMAGE_NAME 273
+#define CREATE 274
+#define STRING_LITERAL 275
+#define RUN 276
+#define BASE 277
+#define ENV 278
 
 
 
@@ -109,6 +127,10 @@ extern int yylex();
 extern char* yytext;
 void yyerror(const char *s) { fprintf(stderr, "Error at line %d: %s\n", yylineno, s); }
 
+char imageName[256];
+char fromValue[256];
+char commandsValue[256];
+
 void executeDockerCommand(const char *command) {
     printf("Executing Docker Command: %s\n", command);
     fflush(stdout);  // Flush the stdout buffer
@@ -117,6 +139,33 @@ void executeDockerCommand(const char *command) {
         printf("Failed to execute command: %s\n", command);
     }
 }
+
+void createAndBuildDockerImage(const char *dockerfileName, const char *imageName, const char *fromImage, const char *commands) {
+    FILE *dockerfile = fopen(dockerfileName, "w");
+    if (dockerfile == NULL) {
+        fprintf(stderr, "Failed to create Dockerfile\n");
+        return;
+    }
+
+    // Write to Dockerfile
+    fprintf(dockerfile, "FROM %s\n", fromImage);
+    if (commands) fprintf(dockerfile, "RUN %s\n", commands);
+    fclose(dockerfile);
+
+    // Construct the build command
+    char buildCommand[1024];
+    snprintf(buildCommand, sizeof(buildCommand), "docker build -t %s -f %s .", imageName, dockerfileName);
+
+    // Execute the build command
+    printf("Building Docker Image: %s\n", buildCommand);
+    fflush(stdout);
+    int status = system(buildCommand);
+    if (status == -1) {
+        printf("Failed to execute command: %s\n", buildCommand);
+    }
+}
+
+
 
 
 
@@ -140,14 +189,14 @@ void executeDockerCommand(const char *command) {
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 26 "parser.y"
+#line 59 "parser.y"
 {
     char* strVal;
     int intVal;
     // Add other types as needed
 }
 /* Line 193 of yacc.c.  */
-#line 151 "parser.c"
+#line 200 "parser.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -160,7 +209,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 164 "parser.c"
+#line 213 "parser.c"
 
 #ifdef short
 # undef short
@@ -373,22 +422,22 @@ union yyalloc
 #endif
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  4
+#define YYFINAL  11
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   13
+#define YYLAST   48
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  24
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  7
+#define YYNRULES  19
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  17
+#define YYNSTATES  45
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   269
+#define YYMAXUTOK   278
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -422,7 +471,8 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23
 };
 
 #if YYDEBUG
@@ -430,21 +480,27 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,    10,    16,    19,    22,    25
+       0,     0,     3,     6,     9,    12,    15,    19,    23,    28,
+      33,    38,    39,    42,    47,    52,    57,    60,    63,    66
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      16,     0,    -1,     3,     5,    17,     4,     6,    16,    -1,
-       3,     5,    17,     4,     6,    -1,     7,     6,    -1,     9,
-       6,    -1,     8,     6,    -1,    10,     6,    -1
+      25,     0,    -1,    10,    26,    -1,     7,    26,    -1,     9,
+      26,    -1,     8,    26,    -1,    10,    26,    25,    -1,     7,
+      26,    25,    -1,     4,    30,     3,     5,    -1,     4,    27,
+       3,     5,    -1,    19,     4,    28,     3,    -1,    -1,    28,
+      29,    -1,    15,     6,    20,     5,    -1,    17,     6,    20,
+       5,    -1,    18,     6,    20,     5,    -1,    11,     5,    -1,
+      13,     5,    -1,    12,     5,    -1,    14,     5,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    38,    38,    39,    42,    43,    44,    45
+       0,    72,    72,    73,    74,    75,    76,    77,    81,    82,
+      87,    92,    93,    97,    98,    99,   104,   105,   106,   107
 };
 #endif
 
@@ -453,10 +509,12 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "DOLPHIN", "CLOSE_BRACE", "OPEN_BRACE",
-  "SEMI", "LIST_IMAGES", "REMOVE_IMAGES", "LIST_CONTAINERS",
-  "REMOVE_CONTAINERS", "STRING_LITERAL", "RUN", "BASE", "ENV", "$accept",
-  "commands", "dolphin_action", 0
+  "$end", "error", "$undefined", "CLOSE_BRACE", "OPEN_BRACE", "SEMI",
+  "ARROW", "DOLPHIN", "BLUEWHALE", "BELUGA", "ORCA", "LIST_IMAGES",
+  "REMOVE_IMAGES", "LIST_CONTAINERS", "REMOVE_CONTAINERS", "FROM", "WHERE",
+  "COMMANDS", "IMAGE_NAME", "CREATE", "STRING_LITERAL", "RUN", "BASE",
+  "ENV", "$accept", "keywords", "structure", "orca_action",
+  "orca_subcommands", "orca_subcommand", "dolphin_action", 0
 };
 #endif
 
@@ -466,20 +524,23 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    15,    16,    16,    17,    17,    17,    17
+       0,    24,    25,    25,    25,    25,    25,    25,    26,    26,
+      27,    28,    28,    29,    29,    29,    30,    30,    30,    30
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     6,     5,     2,     2,     2,     2
+       0,     2,     2,     2,     2,     2,     3,     3,     4,     4,
+       4,     0,     2,     4,     4,     4,     2,     2,     2,     2
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -487,29 +548,35 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
-       4,     6,     5,     7,     0,     3,     2
+       0,     0,     0,     0,     0,     0,     0,     3,     5,     4,
+       2,     1,     0,     0,     0,     0,     0,     0,     0,     7,
+       6,    16,    18,    17,    19,    11,     0,     0,     0,     9,
+       8,    10,     0,     0,     0,    12,     0,     0,     0,     0,
+       0,     0,    13,    14,    15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     9
+      -1,     5,     7,    17,    28,    35,    18
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -9
+#define YYPACT_NINF -11
 static const yytype_int8 yypact[] =
 {
-       1,     0,     6,    -7,    -9,     2,     3,     4,     5,     8,
-      -9,    -9,    -9,    -9,     7,     1,    -9
+      -2,     7,     7,     7,     7,    19,   -10,    -2,   -11,   -11,
+      -2,   -11,    15,    16,    17,    18,    20,    22,    23,   -11,
+     -11,   -11,   -11,   -11,   -11,   -11,    24,    25,    -3,   -11,
+     -11,   -11,    21,    26,    27,   -11,     8,    11,    28,    29,
+      30,    31,   -11,   -11,   -11
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -9,    -8,    -9
+     -11,     3,    14,   -11,   -11,   -11,   -11
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -519,22 +586,31 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       5,     6,     7,     8,     1,     3,     4,    16,    10,    11,
-      12,    13,    14,    15
+      31,    12,    13,    14,    15,     1,     2,     3,     4,    16,
+      19,     6,    32,    20,    33,    34,     8,     9,    10,    11,
+      21,    22,    23,    24,    25,    26,    27,    36,    39,    29,
+      30,    40,    37,    38,    42,    43,    44,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    41
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       7,     8,     9,    10,     3,     5,     0,    15,     6,     6,
-       6,     6,     4,     6
+       3,    11,    12,    13,    14,     7,     8,     9,    10,    19,
+       7,     4,    15,    10,    17,    18,     2,     3,     4,     0,
+       5,     5,     5,     5,     4,     3,     3,     6,    20,     5,
+       5,    20,     6,     6,     5,     5,     5,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    20
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    16,     5,     0,     7,     8,     9,    10,    17,
-       6,     6,     6,     6,     4,     6,    16
+       0,     7,     8,     9,    10,    25,     4,    26,    26,    26,
+      26,     0,    11,    12,    13,    14,    19,    27,    30,    25,
+      25,     5,     5,     5,     5,     4,     3,     3,    28,     5,
+       5,     3,    15,    17,    18,    29,     6,     6,     6,    20,
+      20,    20,     5,     5,     5
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1348,29 +1424,51 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 4:
-#line 42 "parser.y"
+        case 10:
+#line 87 "parser.y"
+    {
+        createAndBuildDockerImage("Dockerfile", imageName, fromValue, commandsValue);
+    ;}
+    break;
+
+  case 13:
+#line 97 "parser.y"
+    { strncpy(fromValue, (yyvsp[(3) - (4)].strVal), sizeof(fromValue) - 1); ;}
+    break;
+
+  case 14:
+#line 98 "parser.y"
+    { strncpy(commandsValue, (yyvsp[(3) - (4)].strVal), sizeof(commandsValue) - 1); ;}
+    break;
+
+  case 15:
+#line 99 "parser.y"
+    { strncpy(imageName, (yyvsp[(3) - (4)].strVal), sizeof(imageName) - 1); ;}
+    break;
+
+  case 16:
+#line 104 "parser.y"
     { executeDockerCommand("docker images"); ;}
     break;
 
-  case 5:
-#line 43 "parser.y"
+  case 17:
+#line 105 "parser.y"
     { executeDockerCommand("docker ps -a"); ;}
     break;
 
-  case 6:
-#line 44 "parser.y"
+  case 18:
+#line 106 "parser.y"
     { executeDockerCommand("docker rmi $(docker images -q)"); ;}
     break;
 
-  case 7:
-#line 45 "parser.y"
+  case 19:
+#line 107 "parser.y"
     { executeDockerCommand("docker rm $(docker ps -a -q)"); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1374 "parser.c"
+#line 1472 "parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1584,10 +1682,14 @@ yyreturn:
 }
 
 
-#line 46 "parser.y"
+#line 108 "parser.y"
 
 
 int main() {
+    memset(imageName, 0, sizeof(imageName));
+    memset(fromValue, 0, sizeof(fromValue));
+    memset(commandsValue, 0, sizeof(commandsValue));
+
     yyparse();
     return 0;
 }
