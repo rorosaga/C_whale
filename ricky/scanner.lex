@@ -4,7 +4,8 @@
     #include "parser.h"
 
     #define COLON 4
-
+    #define ALL 16
+    #define FORCE 17
     #define STOP 19
     #define REMOVE 20
     #define INSPECT 21
@@ -44,7 +45,7 @@
 "prune_containers"     { printf("Action: prune_containers\n"); return PRUNE_CONTAINERS; }
 "prune_volumes"        { printf("Action: prune_volumes\n"); return PRUNE_VOLUMES; }
 "prune_networks"       { printf("Action: prune_networks\n"); return PRUNE_NETWORKS; }
-"prune_system"         { printf("Action: prune_system\n"); return PRUNE_SYSTEM; }
+"system_info"          { printf("Action: system_info\n"); return SYSTEM_INFO; }
 
 "all"                  { printf("Option: all\n"); return ALL; }
 "force"                { printf("Option: force\n"); return FORCE; }
@@ -79,7 +80,6 @@
 "remove_images"         { return REMOVE_IMAGES; }
 "list_containers"       { return LIST_CONTAINERS; }
 "remove_containers"     { return REMOVE_CONTAINERS; }
-"system_info"           { return SYSTEM_INFO}
 
 "env"                  { printf("Option: env\n"); return ENV; }
 
