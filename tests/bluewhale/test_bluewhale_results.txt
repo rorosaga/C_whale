@@ -1,0 +1,35 @@
+Keyword: bluewhale
+Open Brace
+Action: prune_images
+Semicolon
+Executing Docker Command: docker image prune -a
+WARNING! This will remove all images without at least one container associated to them.
+Are you sure you want to continue? [y/N] Total reclaimed space: 0B
+Close Brace
+Semicolon
+Keyword: bluewhale
+Open Brace
+Action: prune_containers
+Semicolon
+Executing Docker Command: docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] Total reclaimed space: 0B
+Close Brace
+Semicolon
+Keyword: bluewhale
+Open Brace
+Action: prune_networks
+Semicolon
+Executing Docker Command: docker network prune
+WARNING! This will remove all custom networks not used by at least one container.
+Are you sure you want to continue? [y/N] Close Brace
+Semicolon
+Keyword: bluewhale
+Open Brace
+Action: prune_volumes
+Semicolon
+Executing Docker Command: docker volume prune
+WARNING! This will remove anonymous local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] Total reclaimed space: 0B
+Close Brace
+Semicolon

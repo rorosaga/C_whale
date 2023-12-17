@@ -1,0 +1,48 @@
+Keyword: orca
+Open Brace
+Action: create
+Open Brace
+Option: naming the image to be created
+Arrow
+Semicolon
+Option: image base to create the image from
+Arrow
+Semicolon
+Close Brace
+Building Docker Image: docker build -t "my_simple_image" -f Dockerfile .
+Close Brace
+Semicolon
+Keyword: orca
+Open Brace
+Action: create
+Open Brace
+Option: naming the image to be created
+Arrow
+Semicolon
+Option: image base to create the image from
+Arrow
+Semicolon
+Option: commands
+Arrow
+Semicolon
+Close Brace
+Building Docker Image: docker build -t "my_app_image" -f Dockerfile .
+Close Brace
+Semicolon
+Keyword: orca
+Open Brace
+Action: create
+Open Brace
+Option: naming the image to be created
+Arrow
+Semicolon
+Option: image base to create the image from
+Arrow
+Semicolon
+Option: commands
+Arrow
+Semicolon
+Close Brace
+Building Docker Image: docker build -t "full_feature_image" -f Dockerfile .
+Close Brace
+Semicolon

@@ -3,7 +3,21 @@
     #include <string.h>
     #include "parser.h"
 
+<<<<<<< HEAD
 
+=======
+    #define COLON 4
+
+    #define STOP 19
+    #define REMOVE 20
+    #define INSPECT 21
+    #define LIST 22
+    #define REMOVE_BASE 24 
+    #define PORT 28
+    #define VOLUME 30
+    #define DETACH 31
+    #define MEMORY 32
+>>>>>>> parent of 18e0979 (Beluga, bluewhale, and orca working)
     #define EXPOSED 36
     #define CONTAINERS 37
     #define IMAGES 38
@@ -33,7 +47,7 @@
 "prune_containers"     { printf("Action: prune_containers\n"); return PRUNE_CONTAINERS; }
 "prune_volumes"        { printf("Action: prune_volumes\n"); return PRUNE_VOLUMES; }
 "prune_networks"       { printf("Action: prune_networks\n"); return PRUNE_NETWORKS; }
-"system_info"          { printf("Action: system_info\n"); return SYSTEM_INFO; }
+"prune_system"         { printf("Action: prune_system\n"); return PRUNE_SYSTEM; }
 
 "all"                  { printf("Option: all\n"); return ALL; }
 "force"                { printf("Option: force\n"); return FORCE; }
@@ -70,6 +84,7 @@
 "remove_images"         { return REMOVE_IMAGES; }
 "list_containers"       { return LIST_CONTAINERS; }
 "remove_containers"     { return REMOVE_CONTAINERS; }
+"system_info"           { return SYSTEM_INFO}
 
 "env"                  { printf("Option: env\n"); return ENV; }
 

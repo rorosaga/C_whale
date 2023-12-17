@@ -51,21 +51,15 @@
      REMOVE_IMAGES = 267,
      LIST_CONTAINERS = 268,
      REMOVE_CONTAINERS = 269,
-     SYSTEM_INFO = 270,
-     FROM = 271,
-     WHERE = 272,
-     COMMANDS = 273,
-     IMAGE_NAME = 274,
-     CREATE = 275,
-     PRUNE_IMAGES = 276,
-     PRUNE_CONTAINERS = 277,
-     PRUNE_VOLUMES = 278,
-     PRUNE_NETWORKS = 279,
-     PRUNE_SYSTEM = 280,
-     STRING_LITERAL = 281,
-     RUN = 282,
-     BASE = 283,
-     ENV = 284
+     FROM = 270,
+     WHERE = 271,
+     COMMANDS = 272,
+     IMAGE_NAME = 273,
+     CREATE = 274,
+     STRING_LITERAL = 275,
+     RUN = 276,
+     BASE = 277,
+     ENV = 278
    };
 #endif
 /* Tokens.  */
@@ -81,35 +75,29 @@
 #define REMOVE_IMAGES 267
 #define LIST_CONTAINERS 268
 #define REMOVE_CONTAINERS 269
-#define SYSTEM_INFO 270
-#define FROM 271
-#define WHERE 272
-#define COMMANDS 273
-#define IMAGE_NAME 274
-#define CREATE 275
-#define PRUNE_IMAGES 276
-#define PRUNE_CONTAINERS 277
-#define PRUNE_VOLUMES 278
-#define PRUNE_NETWORKS 279
-#define PRUNE_SYSTEM 280
-#define STRING_LITERAL 281
-#define RUN 282
-#define BASE 283
-#define ENV 284
+#define FROM 270
+#define WHERE 271
+#define COMMANDS 272
+#define IMAGE_NAME 273
+#define CREATE 274
+#define STRING_LITERAL 275
+#define RUN 276
+#define BASE 277
+#define ENV 278
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 60 "parser.y"
+#line 59 "parser.y"
 {
     char* strVal;
     int intVal;
     // Add other types as needed
 }
 /* Line 1529 of yacc.c.  */
-#line 113 "parser.h"
+#line 101 "parser.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

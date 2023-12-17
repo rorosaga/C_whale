@@ -1,0 +1,23 @@
+Keyword: dolphin
+Open Brace
+Semicolon
+Executing Docker Command: docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+Close Brace
+Semicolon
+Keyword: dolphin
+Open Brace
+Semicolon
+Executing Docker Command: docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+my_image     latest    42f87388636b   9 hours ago   69.3MB
+Close Brace
+Semicolon
+Keyword: dolphin
+Open Brace
+Semicolon
+Executing Docker Command: docker rmi $(docker images -q)
+Untagged: my_image:latest
+Deleted: sha256:42f87388636be6fc982f56e61cd5c243a6bfb9965ad180e756db1b1951a78f82
+Close Brace
+Semicolon

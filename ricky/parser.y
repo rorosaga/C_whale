@@ -283,7 +283,6 @@ bluewhale_action:
     | PRUNE_NETWORKS SEMI { executeDockerCommand("docker network prune"); }
     | PRUNE_VOLUMES SEMI { executeDockerCommand("docker volume prune"); }
     | PRUNE_SYSTEM SEMI { executeDockerCommand("docker system prune"); }
-    |
     ;
 
 
