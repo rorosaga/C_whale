@@ -20,11 +20,6 @@ C_Whale is a Domain Specific Language that facilitates the process of creating d
 
 ## Installation
 
-To use C_Whale and leverage the ORCA commands, follow these installation steps:
-
-1. Clone the C_Whale repository from [GitHub](https://github.com/C_Whale).
-2. Build the C_Whale compiler using the provided build script.
-3. Ensure that the C_Whale binary is in your system's PATH.
 
 ## Design Choices
 
