@@ -14,12 +14,55 @@ C based language for Dockerfile management, image and container deployment.
 
 ## Overview
 
-Docker, a containerization platform, streamlines application deployment and consistency. Leveraging a C-based language for Docker simplifies container creation, making it efficient and resource-optimized, enhancing the process of spinning up containers and building images
+**Docker**, a containerization platform, streamlines application deployment and consistency. Leveraging a C-based language for Docker simplifies container creation, making it efficient and resource-optimized, enhancing the process of spinning up containers and building images
 
-C_Whale is a Domain Specific Language that facilitates the process of creating docker images and seamlessly spinning up containers without having to go through memorizing complex docker commands.
+**C_Whale** is a Domain Specific Language that facilitates the process of creating docker images and seamlessly spinning up containers without having to go through memorizing complex docker commands.
 
-## Installation
+## Running C_Whale
 
+### **Prerequisites**
+
+>- Docker
+>- Git
+
+To run C_Whale, you must have **Docker** installed on your machine. To install Docker, please refer to the [official documentation](https://docs.docker.com/get-docker/).
+
+Once you have Docker installed, you can run the following commands to build and run C_Whale:
+
+```bash
+git clone https://github.com/rorosaga/C_whale.git
+```
+**NOTE**: `.cw` files are the C_Whale files that contain the C_Whale code.
+
+### **Mac/Linux**
+***
+```bash
+./c_whale < file_name.cw
+```
+
+**file_name.cw** is the name of the file containing the C_Whale code.
+
+Alternatively, you can run:
+
+```bash
+./c_whale
+```
+And then enter the C_Whale code in the terminal.
+
+### **Windows**
+***
+In Windows CMD, run the following command:
+```bash
+c_whale.exe < file_name.cw
+```
+**file_name.cw** is the name of the file containing the C_Whale code.
+
+Alternatively, you can run:
+
+```bash
+c_whale.exe
+```
+And then enter the C_Whale code in the terminal.
 
 ## Design Choices
 
