@@ -1,7 +1,0 @@
-orca "my_image" {
-    create base "ubuntu:latest";
-    expose 80;
-    env "MY_ENV_VAR" = "value";
-    run "apt-get update";
-    copy "/host/file.txt" "/container/file.txt";
-}
