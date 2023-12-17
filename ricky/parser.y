@@ -293,6 +293,13 @@ int main() {
     memset(imageName, 0, sizeof(imageName));
     memset(fromValue, 0, sizeof(fromValue));
     memset(commandsValue, 0, sizeof(commandsValue));
+    memset(containerName, 0, sizeof(containerName));
+    memset(portName, 0, sizeof(portName));
+    memset(volumeName, 0, sizeof(volumeName));
+    memset(detachMode, 0, sizeof(detachMode));
+    memset(memoryName, 0, sizeof(memoryName));
+    memset(envName, 0, sizeof(envName));
+    memset(networkName, 0, sizeof(networkName));
 
     yyparse();
     return 0;
