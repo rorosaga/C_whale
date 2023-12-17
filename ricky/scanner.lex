@@ -4,11 +4,6 @@
     #include "parser.h"
 
     #define COLON 4
-    #define PRUNE_IMAGES 11
-    #define PRUNE_CONTAINERS 12
-    #define PRUNE_VOLUMES 13
-    #define PRUNE_NETWORKS 14
-    #define SYSTEM_INFO 15
     #define ALL 16
     #define FORCE 17
     #define STOP 19

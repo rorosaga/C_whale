@@ -52,8 +52,9 @@ void createAndBuildDockerImage(const char *dockerfileName, const char *imageName
 
 %token CLOSE_BRACE OPEN_BRACE SEMI ARROW
 %token DOLPHIN BLUEWHALE BELUGA ORCA
-%token LIST_IMAGES REMOVE_IMAGES LIST_CONTAINERS REMOVE_CONTAINERS
+%token LIST_IMAGES REMOVE_IMAGES LIST_CONTAINERS REMOVE_CONTAINERS SYSTEM_INFO
 %token FROM WHERE COMMANDS IMAGE_NAME CREATE
+%token PRUNE_IMAGES PRUNE_CONTAINERS PRUNE_VOLUMES PRUNE_NETWORKS PRUNE_SYSTEM
 
 
 %union {
@@ -74,12 +75,14 @@ keywords:
     | BELUGA structure
     | BLUEWHALE structure
     | ORCA structure keywords
-    | DOLPHIN structure keywords;
+    | DOLPHIN structure keywords
+    | BLUEWHALE structure keywords;
 
 
 structure:
     OPEN_BRACE dolphin_action CLOSE_BRACE SEMI
     | OPEN_BRACE orca_action CLOSE_BRACE SEMI
+    | OPEN_BRACE bluewhale_action CLOSE_BRACE SEMI
     ;
 
 
@@ -104,7 +107,21 @@ dolphin_action:
     LIST_IMAGES SEMI { executeDockerCommand("docker images"); }
     | LIST_CONTAINERS SEMI { executeDockerCommand("docker ps -a"); }
     | REMOVE_IMAGES SEMI { executeDockerCommand("docker rmi $(docker images -q)"); }
-    | REMOVE_CONTAINERS SEMI { executeDockerCommand("docker rm $(docker ps -a -q)"); };
+    | REMOVE_CONTAINERS SEMI { executeDockerCommand("docker rm $(docker ps -a -q)"); }
+    | SYSTEM_INFO SEMI { executeDockerCommand("docker system info")}
+    ;
+
+
+bluewhale_action:
+    PRUNE_IMAGES SEMI { executeDockerCommand("docker image prune -a"); } 
+    | PRUNE_CONTAINERS SEMI { executeDockerCommand("docker container prune"); }
+    | PRUNE_NETWORKS SEMI { executeDockerCommand("docker network prune"); }
+    | PRUNE_VOLUMES SEMI { executeDockerCommand("docker volume prune"); }
+    | PRUNE_SYSTEM SEMI { executeDockerCommand("docker system prune"); }
+    |
+    ;
+
+
 %%
 
 int main() {
