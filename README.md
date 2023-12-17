@@ -10,6 +10,7 @@ C based language for Dockerfile management, image and container deployment.
 - [BELUGA](#beluga)
 - [DOLPHIN](#dolphin)
 - [BLUEWHALE](#bluewhale)
+- [Error Handling](#error-handling)
 - [Sample Run](#sample-run)
 
 ## Overview
