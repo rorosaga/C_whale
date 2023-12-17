@@ -78,15 +78,21 @@
      REMOVE_IMAGES = 267,
      LIST_CONTAINERS = 268,
      REMOVE_CONTAINERS = 269,
-     FROM = 270,
-     WHERE = 271,
-     COMMANDS = 272,
-     IMAGE_NAME = 273,
-     CREATE = 274,
-     STRING_LITERAL = 275,
-     RUN = 276,
-     BASE = 277,
-     ENV = 278
+     SYSTEM_INFO = 270,
+     FROM = 271,
+     WHERE = 272,
+     COMMANDS = 273,
+     IMAGE_NAME = 274,
+     CREATE = 275,
+     PRUNE_IMAGES = 276,
+     PRUNE_CONTAINERS = 277,
+     PRUNE_VOLUMES = 278,
+     PRUNE_NETWORKS = 279,
+     PRUNE_SYSTEM = 280,
+     STRING_LITERAL = 281,
+     RUN = 282,
+     BASE = 283,
+     ENV = 284
    };
 #endif
 /* Tokens.  */
@@ -102,15 +108,21 @@
 #define REMOVE_IMAGES 267
 #define LIST_CONTAINERS 268
 #define REMOVE_CONTAINERS 269
-#define FROM 270
-#define WHERE 271
-#define COMMANDS 272
-#define IMAGE_NAME 273
-#define CREATE 274
-#define STRING_LITERAL 275
-#define RUN 276
-#define BASE 277
-#define ENV 278
+#define SYSTEM_INFO 270
+#define FROM 271
+#define WHERE 272
+#define COMMANDS 273
+#define IMAGE_NAME 274
+#define CREATE 275
+#define PRUNE_IMAGES 276
+#define PRUNE_CONTAINERS 277
+#define PRUNE_VOLUMES 278
+#define PRUNE_NETWORKS 279
+#define PRUNE_SYSTEM 280
+#define STRING_LITERAL 281
+#define RUN 282
+#define BASE 283
+#define ENV 284
 
 
 
@@ -189,14 +201,14 @@ void createAndBuildDockerImage(const char *dockerfileName, const char *imageName
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 59 "parser.y"
+#line 60 "parser.y"
 {
     char* strVal;
     int intVal;
     // Add other types as needed
 }
 /* Line 193 of yacc.c.  */
-#line 200 "parser.c"
+#line 212 "parser.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -209,7 +221,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 213 "parser.c"
+#line 225 "parser.c"
 
 #ifdef short
 # undef short
@@ -424,20 +436,20 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  11
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   48
+#define YYLAST   53
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  24
+#define YYNTOKENS  30
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  19
+#define YYNRULES  28
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  45
+#define YYNSTATES  61
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   278
+#define YYMAXUTOK   284
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -472,7 +484,8 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22,    23
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29
 };
 
 #if YYDEBUG
@@ -480,27 +493,32 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     6,     9,    12,    15,    19,    23,    28,
-      33,    38,    39,    42,    47,    52,    57,    60,    63,    66
+       0,     0,     3,     6,     9,    12,    15,    19,    23,    27,
+      32,    37,    42,    47,    48,    51,    56,    61,    66,    69,
+      72,    75,    78,    81,    84,    87,    90,    93,    96
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      25,     0,    -1,    10,    26,    -1,     7,    26,    -1,     9,
-      26,    -1,     8,    26,    -1,    10,    26,    25,    -1,     7,
-      26,    25,    -1,     4,    30,     3,     5,    -1,     4,    27,
-       3,     5,    -1,    19,     4,    28,     3,    -1,    -1,    28,
-      29,    -1,    15,     6,    20,     5,    -1,    17,     6,    20,
-       5,    -1,    18,     6,    20,     5,    -1,    11,     5,    -1,
-      13,     5,    -1,    12,     5,    -1,    14,     5,    -1
+      31,     0,    -1,    10,    32,    -1,     7,    32,    -1,     9,
+      32,    -1,     8,    32,    -1,    10,    32,    31,    -1,     7,
+      32,    31,    -1,     8,    32,    31,    -1,     4,    36,     3,
+       5,    -1,     4,    33,     3,     5,    -1,     4,    37,     3,
+       5,    -1,    20,     4,    34,     3,    -1,    -1,    34,    35,
+      -1,    16,     6,    26,     5,    -1,    18,     6,    26,     5,
+      -1,    19,     6,    26,     5,    -1,    11,     5,    -1,    13,
+       5,    -1,    12,     5,    -1,    14,     5,    -1,    15,     5,
+      -1,    21,     5,    -1,    22,     5,    -1,    24,     5,    -1,
+      23,     5,    -1,    25,     5,    -1,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    72,    72,    73,    74,    75,    76,    77,    81,    82,
-      87,    92,    93,    97,    98,    99,   104,   105,   106,   107
+       0,    73,    73,    74,    75,    76,    77,    78,    79,    83,
+      84,    85,    90,    95,    96,   100,   101,   102,   107,   108,
+     109,   110,   111,   116,   117,   118,   119,   120,   121
 };
 #endif
 
@@ -511,10 +529,12 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "CLOSE_BRACE", "OPEN_BRACE", "SEMI",
   "ARROW", "DOLPHIN", "BLUEWHALE", "BELUGA", "ORCA", "LIST_IMAGES",
-  "REMOVE_IMAGES", "LIST_CONTAINERS", "REMOVE_CONTAINERS", "FROM", "WHERE",
-  "COMMANDS", "IMAGE_NAME", "CREATE", "STRING_LITERAL", "RUN", "BASE",
-  "ENV", "$accept", "keywords", "structure", "orca_action",
-  "orca_subcommands", "orca_subcommand", "dolphin_action", 0
+  "REMOVE_IMAGES", "LIST_CONTAINERS", "REMOVE_CONTAINERS", "SYSTEM_INFO",
+  "FROM", "WHERE", "COMMANDS", "IMAGE_NAME", "CREATE", "PRUNE_IMAGES",
+  "PRUNE_CONTAINERS", "PRUNE_VOLUMES", "PRUNE_NETWORKS", "PRUNE_SYSTEM",
+  "STRING_LITERAL", "RUN", "BASE", "ENV", "$accept", "keywords",
+  "structure", "orca_action", "orca_subcommands", "orca_subcommand",
+  "dolphin_action", "bluewhale_action", 0
 };
 #endif
 
@@ -525,22 +545,24 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    24,    25,    25,    25,    25,    25,    25,    26,    26,
-      27,    28,    28,    29,    29,    29,    30,    30,    30,    30
+       0,    30,    31,    31,    31,    31,    31,    31,    31,    32,
+      32,    32,    33,    34,    34,    35,    35,    35,    36,    36,
+      36,    36,    36,    37,    37,    37,    37,    37,    37
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     2,     2,     2,     3,     3,     4,     4,
-       4,     0,     2,     4,     4,     4,     2,     2,     2,     2
+       0,     2,     2,     2,     2,     2,     3,     3,     3,     4,
+       4,     4,     4,     0,     2,     4,     4,     4,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     0
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -548,35 +570,39 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     0,     3,     5,     4,
-       2,     1,     0,     0,     0,     0,     0,     0,     0,     7,
-       6,    16,    18,    17,    19,    11,     0,     0,     0,     9,
-       8,    10,     0,     0,     0,    12,     0,     0,     0,     0,
-       0,     0,    13,    14,    15
+       0,     0,     0,     0,     0,     0,    28,     3,     5,     4,
+       2,     1,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     7,     8,     6,    18,
+      20,    19,    21,    22,    13,    23,    24,    26,    25,    27,
+       0,     0,     0,     0,    10,     9,    11,    12,     0,     0,
+       0,    14,     0,     0,     0,     0,     0,     0,    15,    16,
+      17
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     5,     7,    17,    28,    35,    18
+      -1,     5,     7,    23,    43,    51,    24,    25
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -11
+#define YYPACT_NINF -7
 static const yytype_int8 yypact[] =
 {
-      -2,     7,     7,     7,     7,    19,   -10,    -2,   -11,   -11,
-      -2,   -11,    15,    16,    17,    18,    20,    22,    23,   -11,
-     -11,   -11,   -11,   -11,   -11,   -11,    24,    25,    -3,   -11,
-     -11,   -11,    21,    26,    27,   -11,     8,    11,    28,    29,
-      30,    31,   -11,   -11,   -11
+      -6,     3,     3,     3,     3,    12,     6,    -6,    -6,    -7,
+      -6,    -7,     9,    17,    18,    19,    20,    28,    29,    30,
+      31,    32,    33,    36,    37,    38,    -7,    -7,    -7,    -7,
+      -7,    -7,    -7,    -7,    -7,    -7,    -7,    -7,    -7,    -7,
+      39,    40,    41,    -3,    -7,    -7,    -7,    -7,    27,    42,
+      43,    -7,    16,    21,    24,    46,    47,    48,    -7,    -7,
+      -7
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,     3,    14,   -11,   -11,   -11,   -11
+      -7,    -2,     7,    -7,    -7,    -7,    -7,    -7
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -586,31 +612,35 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      31,    12,    13,    14,    15,     1,     2,     3,     4,    16,
-      19,     6,    32,    20,    33,    34,     8,     9,    10,    11,
-      21,    22,    23,    24,    25,    26,    27,    36,    39,    29,
-      30,    40,    37,    38,    42,    43,    44,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    41
+      47,     1,     2,     3,     4,    26,    27,     6,    28,     8,
+       9,    10,    11,    48,    29,    49,    50,    12,    13,    14,
+      15,    16,    30,    31,    32,    33,    17,    18,    19,    20,
+      21,    22,    34,    52,    35,    36,    37,    38,    39,    40,
+      41,    42,    55,     0,    44,    45,    46,    56,    53,    54,
+      57,    58,    59,    60
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,    11,    12,    13,    14,     7,     8,     9,    10,    19,
-       7,     4,    15,    10,    17,    18,     2,     3,     4,     0,
-       5,     5,     5,     5,     4,     3,     3,     6,    20,     5,
-       5,    20,     6,     6,     5,     5,     5,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    20
+       3,     7,     8,     9,    10,     7,     8,     4,    10,     2,
+       3,     4,     0,    16,     5,    18,    19,    11,    12,    13,
+      14,    15,     5,     5,     5,     5,    20,    21,    22,    23,
+      24,    25,     4,     6,     5,     5,     5,     5,     5,     3,
+       3,     3,    26,    -1,     5,     5,     5,    26,     6,     6,
+      26,     5,     5,     5
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     7,     8,     9,    10,    25,     4,    26,    26,    26,
-      26,     0,    11,    12,    13,    14,    19,    27,    30,    25,
-      25,     5,     5,     5,     5,     4,     3,     3,    28,     5,
-       5,     3,    15,    17,    18,    29,     6,     6,     6,    20,
-      20,    20,     5,     5,     5
+       0,     7,     8,     9,    10,    31,     4,    32,    32,    32,
+      32,     0,    11,    12,    13,    14,    15,    20,    21,    22,
+      23,    24,    25,    33,    36,    37,    31,    31,    31,     5,
+       5,     5,     5,     5,     4,     5,     5,     5,     5,     5,
+       3,     3,     3,    34,     5,     5,     5,     3,    16,    18,
+      19,    35,     6,     6,     6,    26,    26,    26,     5,     5,
+       5
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1424,51 +1454,81 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 10:
-#line 87 "parser.y"
+        case 12:
+#line 90 "parser.y"
     {
         createAndBuildDockerImage("Dockerfile", imageName, fromValue, commandsValue);
     ;}
     break;
 
-  case 13:
-#line 97 "parser.y"
+  case 15:
+#line 100 "parser.y"
     { strncpy(fromValue, (yyvsp[(3) - (4)].strVal), sizeof(fromValue) - 1); ;}
     break;
 
-  case 14:
-#line 98 "parser.y"
+  case 16:
+#line 101 "parser.y"
     { strncpy(commandsValue, (yyvsp[(3) - (4)].strVal), sizeof(commandsValue) - 1); ;}
     break;
 
-  case 15:
-#line 99 "parser.y"
+  case 17:
+#line 102 "parser.y"
     { strncpy(imageName, (yyvsp[(3) - (4)].strVal), sizeof(imageName) - 1); ;}
     break;
 
-  case 16:
-#line 104 "parser.y"
+  case 18:
+#line 107 "parser.y"
     { executeDockerCommand("docker images"); ;}
     break;
 
-  case 17:
-#line 105 "parser.y"
+  case 19:
+#line 108 "parser.y"
     { executeDockerCommand("docker ps -a"); ;}
     break;
 
-  case 18:
-#line 106 "parser.y"
+  case 20:
+#line 109 "parser.y"
     { executeDockerCommand("docker rmi $(docker images -q)"); ;}
     break;
 
-  case 19:
-#line 107 "parser.y"
+  case 21:
+#line 110 "parser.y"
     { executeDockerCommand("docker rm $(docker ps -a -q)"); ;}
+    break;
+
+  case 22:
+#line 111 "parser.y"
+    { executeDockerCommand("docker system info");}
+    break;
+
+  case 23:
+#line 116 "parser.y"
+    { executeDockerCommand("docker image prune -a"); ;}
+    break;
+
+  case 24:
+#line 117 "parser.y"
+    { executeDockerCommand("docker container prune"); ;}
+    break;
+
+  case 25:
+#line 118 "parser.y"
+    { executeDockerCommand("docker network prune"); ;}
+    break;
+
+  case 26:
+#line 119 "parser.y"
+    { executeDockerCommand("docker volume prune"); ;}
+    break;
+
+  case 27:
+#line 120 "parser.y"
+    { executeDockerCommand("docker system prune"); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1472 "parser.c"
+#line 1532 "parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1682,7 +1742,7 @@ yyreturn:
 }
 
 
-#line 108 "parser.y"
+#line 125 "parser.y"
 
 
 int main() {

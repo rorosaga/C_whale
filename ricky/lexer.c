@@ -616,11 +616,6 @@ char *yytext;
     #include "parser.h"
 
     #define COLON 4
-    #define PRUNE_IMAGES 11
-    #define PRUNE_CONTAINERS 12
-    #define PRUNE_VOLUMES 13
-    #define PRUNE_NETWORKS 14
-    #define SYSTEM_INFO 15
     #define ALL 16
     #define FORCE 17
     #define STOP 19
@@ -639,8 +634,8 @@ char *yytext;
     #define VOLUMES 40
 
     void comment();
-#line 642 "lexer.c"
-#line 643 "lexer.c"
+#line 637 "lexer.c"
+#line 638 "lexer.c"
 
 #define INITIAL 0
 
@@ -857,10 +852,10 @@ YY_DECL
 		}
 
 	{
-#line 35 "scanner.lex"
+#line 30 "scanner.lex"
 
 
-#line 863 "lexer.c"
+#line 858 "lexer.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -929,242 +924,242 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 37 "scanner.lex"
+#line 32 "scanner.lex"
 { printf("Open Brace\n"); return OPEN_BRACE; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 38 "scanner.lex"
+#line 33 "scanner.lex"
 { printf("Close Brace\n"); return CLOSE_BRACE; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 39 "scanner.lex"
+#line 34 "scanner.lex"
 { printf("Arrow\n"); return ARROW; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 40 "scanner.lex"
+#line 35 "scanner.lex"
 { printf("Colon\n"); return COLON; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 41 "scanner.lex"
+#line 36 "scanner.lex"
 { printf("Semicolon\n"); return SEMI; }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 42 "scanner.lex"
+#line 37 "scanner.lex"
 { yylval.strVal = strdup(yytext); return STRING_LITERAL; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 44 "scanner.lex"
+#line 39 "scanner.lex"
 { printf("Keyword: orca\n"); return ORCA; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 45 "scanner.lex"
+#line 40 "scanner.lex"
 { printf("Keyword: beluga\n"); return BELUGA; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 46 "scanner.lex"
+#line 41 "scanner.lex"
 { printf("Keyword: dolphin\n"); return DOLPHIN; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 47 "scanner.lex"
+#line 42 "scanner.lex"
 { printf("Keyword: bluewhale\n"); return BLUEWHALE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 49 "scanner.lex"
+#line 44 "scanner.lex"
 { printf("Action: prune_images\n"); return PRUNE_IMAGES; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 50 "scanner.lex"
+#line 45 "scanner.lex"
 { printf("Action: prune_containers\n"); return PRUNE_CONTAINERS; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 51 "scanner.lex"
+#line 46 "scanner.lex"
 { printf("Action: prune_volumes\n"); return PRUNE_VOLUMES; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 52 "scanner.lex"
+#line 47 "scanner.lex"
 { printf("Action: prune_networks\n"); return PRUNE_NETWORKS; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 53 "scanner.lex"
+#line 48 "scanner.lex"
 { printf("Action: system_info\n"); return SYSTEM_INFO; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 55 "scanner.lex"
+#line 50 "scanner.lex"
 { printf("Option: all\n"); return ALL; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 56 "scanner.lex"
+#line 51 "scanner.lex"
 { printf("Option: force\n"); return FORCE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 58 "scanner.lex"
+#line 53 "scanner.lex"
 { printf("Action: containers\n"); return CONTAINERS; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 59 "scanner.lex"
+#line 54 "scanner.lex"
 { printf("Action: images\n"); return IMAGES; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 60 "scanner.lex"
+#line 55 "scanner.lex"
 { printf("Action: networks\n"); return NETWORKS; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 61 "scanner.lex"
+#line 56 "scanner.lex"
 { printf("Action: volumes\n"); return VOLUMES; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 63 "scanner.lex"
+#line 58 "scanner.lex"
 { printf("Action: run\n"); return RUN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 64 "scanner.lex"
+#line 59 "scanner.lex"
 { printf("Action: stop\n"); return STOP; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 65 "scanner.lex"
+#line 60 "scanner.lex"
 { printf("Action: remove\n"); return REMOVE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 66 "scanner.lex"
+#line 61 "scanner.lex"
 { printf("Action: inspect\n"); return INSPECT; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 68 "scanner.lex"
+#line 63 "scanner.lex"
 { printf("Option: from\n"); return FROM;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 69 "scanner.lex"
+#line 64 "scanner.lex"
 { printf("Option: port\n"); return PORT;} 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 70 "scanner.lex"
+#line 65 "scanner.lex"
 { printf("Option: volume\n"); return VOLUME;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 71 "scanner.lex"
+#line 66 "scanner.lex"
 { printf("Option: detach\n"); return DETACH;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 72 "scanner.lex"
+#line 67 "scanner.lex"
 { printf("Option: memory\n"); return MEMORY;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 74 "scanner.lex"
+#line 69 "scanner.lex"
 { printf("Action: create\n"); return CREATE; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 75 "scanner.lex"
+#line 70 "scanner.lex"
 { printf("Action: remove_base\n"); return REMOVE_BASE; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 77 "scanner.lex"
+#line 72 "scanner.lex"
 { printf("Option: base\n"); return BASE;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 78 "scanner.lex"
+#line 73 "scanner.lex"
 { printf("Option: commands\n"); return COMMANDS;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 79 "scanner.lex"
+#line 74 "scanner.lex"
 { printf("Option: exposes\n"); return EXPOSED;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 81 "scanner.lex"
+#line 76 "scanner.lex"
 { printf("Option: saving at the specified location\n"); return WHERE;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 82 "scanner.lex"
+#line 77 "scanner.lex"
 { printf("Option: naming the image to be created\n"); return IMAGE_NAME;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 84 "scanner.lex"
+#line 79 "scanner.lex"
 { return LIST_IMAGES; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 85 "scanner.lex"
+#line 80 "scanner.lex"
 { return REMOVE_IMAGES; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 86 "scanner.lex"
+#line 81 "scanner.lex"
 { return LIST_CONTAINERS; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 87 "scanner.lex"
+#line 82 "scanner.lex"
 { return REMOVE_CONTAINERS; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 89 "scanner.lex"
+#line 84 "scanner.lex"
 { printf("Option: env\n"); return ENV; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 91 "scanner.lex"
+#line 86 "scanner.lex"
 { /* Single line comment - consume and ignore */ }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 92 "scanner.lex"
+#line 87 "scanner.lex"
 { comment(); }
 	YY_BREAK
 case 45:
 /* rule 45 can match eol */
 YY_RULE_SETUP
-#line 95 "scanner.lex"
+#line 90 "scanner.lex"
 { /* Ignore whitespace */ }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 96 "scanner.lex"
+#line 91 "scanner.lex"
 { printf("Unrecognized character: %s\n", yytext); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 99 "scanner.lex"
+#line 94 "scanner.lex"
 ECHO;
 	YY_BREAK
-#line 1167 "lexer.c"
+#line 1162 "lexer.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2181,7 +2176,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 99 "scanner.lex"
+#line 94 "scanner.lex"
 
 
 void comment() {
