@@ -5,10 +5,12 @@ C based language for Dockerfile management, image and container deployment.
 
 - [Overview](#overview)
 - [Installation](#installation)
+- [Design Choices](#design-choices)
 - [ORCA](#orca)
 - [BELUGA](#beluga)
 - [DOLPHIN](#dolphin)
 - [BLUEWHALE](#bluewhale)
+
 
 ## Overview
 
@@ -23,6 +25,30 @@ To use C_Whale and leverage the ORCA commands, follow these installation steps:
 1. Clone the C_Whale repository from [GitHub](https://github.com/C_Whale).
 2. Build the C_Whale compiler using the provided build script.
 3. Ensure that the C_Whale binary is in your system's PATH.
+
+## Design Choices
+
+C_Whale is designed to streamline Dockerfile management, image creation, and container deployment using a C-based language. The following design choices have been made to enhance usability, efficiency, and maintainability:
+
+### **1. C-Based Syntax**
+
+The decision to use a C-based syntax aims to leverage the familiarity of the C language, making it accessible to a broad audience of developers. This choice allows users to define Dockerfile instructions in a manner that closely resembles traditional C programming.
+
+### **2. Modular Structure**
+
+C_Whale adopts a modular structure with distinct components for image creation (`orca`), container management (`beluga`), information retrieval (`dolphin`), and system cleanup (`bluewhale`). This separation facilitates a clear and organized syntax for each set of functionalities.
+
+### **3. Intuitive Command Naming**
+
+Commands in C_Whale are named after marine animals (ORCA, BELUGA, DOLPHIN, BLUEWHALE) to provide an intuitive and memorable way to associate each set of commands with its specific functionality. This naming convention aims to enhance user experience and ease of understanding.
+
+### **4. Action-Subcommand Pattern**
+
+The language adopts an action-subcommand pattern for each command, promoting a clear and concise syntax. Users can specify actions (e.g., `create` or `prune_images`) followed by subcommands (e.g., `from`, `commands`, `image_name`). This pattern is designed to enhance readability and expressiveness.
+
+### **5. Examples for Clarity**
+
+To facilitate user understanding, the documentation includes comprehensive examples demonstrating the usage of each command. These examples showcase common scenarios, providing users with practical insights into how to effectively utilize C_Whale for Docker-related tasks.
 
 ## ORCA
 
@@ -51,18 +77,15 @@ orca {
 | Action | Usage |
 | --- | --- |
 | create | create a Dockerfile |
-| remove | remove a Dockerfile |
-| list | list all Dockerfiles |
+
 
 ### **orca_subcommand**
 
 | Subcommand | Usage |
 | --- | --- |
-| base | base image to use for the Dockerfile |
-| run | command to run in the container |
-| expose | port to expose |
-| env | environment variable to set |
-| copy | file to copy |
+| from | set the base image |
+| commands | set the commands to be run |
+| image_name | set the name of the image |
 
 
 ## Examples
@@ -72,14 +95,8 @@ orca {
 ```c
 orca {
     create {
-        base -> "ubuntu";
-        run -> "apt-get update";
-        run -> "apt-get install -y python3";
-        run -> "apt-get install -y python3-pip";
-        run -> "pip3 install flask";
-        expose -> "5000";
-        env -> "FLASK_APP=app.py";
-        copy -> "app.py";
+        from -> "ubuntu";
+        ...
     }
 };
 ```
@@ -95,11 +112,22 @@ The basic structure of a `beluga` command is as follows:
 
 ```c
 beluga {
-    beluga_action
+    beluga_action {
+        beluga_subcommand -> "string_literal";
+    }
 };
 ```
 
 ### **beluga_action**
+
+| Action | Usage |
+| --- | --- |
+
+
+### **beluga_subcommand**
+
+| Subcommand | Usage |
+| --- | --- |
 
 
 ## DOLPHIN
@@ -129,6 +157,25 @@ dolphin {
 | list_containers | list all Docker containers |
 | remove_images | remove a Docker image |
 | remove_containers | remove a Docker container |
+| system_info | display system-wide information |
+
+## Example
+
+### **List all Docker images**
+
+```c
+dolphin {
+    list_images;
+};
+```
+
+### **List all Docker containers**
+
+```c
+dolphin {
+    list_containers;
+};
+```
 
 
 ## BLUEWHALE
@@ -156,3 +203,24 @@ bluewhale {
 | --- | --- |
 | prune_images | remove unused Docker images |
 | prune_containers | remove unused Docker containers |
+| prune_networks | remove unused Docker networks |
+| prune_volumes | remove unused Docker volumes |
+| prune_system | remove unused Docker images, containers, networks, and volumes |
+
+## Example
+
+### **Remove unused Docker images**
+
+```c
+bluewhale {
+    prune_images;
+};
+```
+
+### **Remove unused Docker containers**
+
+```c
+bluewhale {
+    prune_containers;
+};
+```
