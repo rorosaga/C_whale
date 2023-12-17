@@ -3,10 +3,7 @@
     #include <string.h>
     #include "parser.h"
 
-    #define ARROW 3
     #define COLON 4
-    #define BELUGA 8
-    #define BLUEWHALE 10
     #define PRUNE_IMAGES 11
     #define PRUNE_CONTAINERS 12
     #define PRUNE_VOLUMES 13
@@ -18,20 +15,16 @@
     #define REMOVE 20
     #define INSPECT 21
     #define LIST 22
-    #define CREATE 23
     #define REMOVE_BASE 24 
     #define PORT 28
-    #define FROM 29
     #define VOLUME 30
     #define DETACH 31
     #define MEMORY 32
-    #define COMMANDS 35
     #define EXPOSED 36
     #define CONTAINERS 37
     #define IMAGES 38
     #define NETWORKS 39
     #define VOLUMES 40
-    #define ORCA 41
 
     void comment();
 %}
@@ -84,6 +77,9 @@
 "base"                 { printf("Option: base\n"); return BASE;}
 "commands"             { printf("Option: commands\n"); return COMMANDS;}
 "exposes"              { printf("Option: exposes\n"); return EXPOSED;}
+
+"where"                 { printf("Option: saving at the specified location\n"); return WHERE;}
+"image_name"            { printf("Option: naming the image to be created\n"); return IMAGE_NAME;}
 
 "list_images"          { return LIST_IMAGES; }
 "remove_images"         { return REMOVE_IMAGES; }
