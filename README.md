@@ -10,7 +10,7 @@ C based language for Dockerfile management, image and container deployment.
 - [BELUGA](#beluga)
 - [DOLPHIN](#dolphin)
 - [BLUEWHALE](#bluewhale)
-
+- [Sample Run](#sample-run)
 
 ## Overview
 
@@ -35,6 +35,11 @@ git clone https://github.com/rorosaga/C_whale.git
 **NOTE**: `.cw` files are the C_Whale files that contain the C_Whale code.
 
 ### **Mac/Linux**
+
+The executable file for Mac/Linux is inside the folder called final  
+
+Your directory should look like `path/C_Whale/final/`
+
 ***
 ```bash
 ./c_whale < file_name.cw
@@ -50,6 +55,9 @@ Alternatively, you can run:
 And then enter the C_Whale code in the terminal.
 
 ### **Windows**
+The executable file for Windows is inside the folder called windows  
+
+Your directory should look like `path/C_Whale/windows/`
 ***
 In Windows CMD, run the following command:
 ```bash
@@ -262,3 +270,45 @@ bluewhale {
     prune_containers;
 };
 ```
+
+# Error Handling  
+Error handling is a crucial part of debugging any programming language. That is why we have included it in both our lexer and parser.  
+
+### Inside the lexer  
+For every token we have a printf function that displays the token that is being recognized. This helps us know the order at which our language is being compiled. If the token is not recognized, it shows you what token is not being recognized and will flag you for not using C Whale native syntax.
+
+### Inside the parser  
+On line 9, we define a function *yyerror* that is triggered whenever the input does not match the grammar/structure of our language. This function is called by our `parser.c` file that is created with our parser generator of choice *GNU Bison*, that helps making the process of debugging much easier. 
+
+
+
+# Sample Run
+
+We have made a list of .cw files in order to test out our programming language.  
+Inside the `tests` directory, there is a folder with the test files for each of our main functions.  
+
+
+NOTE: make sure you have all the prerequisites listed in the [Running C Whale](#running-c_whale) section  
+OPTIONAL: you may have to activate your docker daemon if you haven't ran docker commands in a while. To activate it, the easiest way is to open the docker desktop app.
+
+### Mac/Linux
+
+1. cd into the working directory of `C_Whale/final`
+2. Run `./c_whale < ../tests/dolphin/test_dolphin.cw` to see the images you have created
+3. Run `./c_whale < ../tests/orca/test_orca.cw` to use our *orca* function to create docker images
+4. Run `./c_whale < ../tests/dolphin/test_dolphin.cw` again to see your results
+5. If you do not have any active, docker containers, run `./c_whale < ../tests/bluewhale/test_bluewhale.cw` this will prune your docker images, containers, networks, and volumes.
+
+
+
+### Windows
+
+1. cd into the working directory of `C_Whale/windows`
+2. Run `c_whale < ../tests/dolphin/test_dolphin.cw` to see the images you have created
+3. Run `c_whale < ../tests/orca/test_orca.cw` to use our *orca* function to create docker images
+4. Run `c_whale < ../tests/dolphin/test_dolphin.cw` again to see your results
+5. If you do not have any active, docker containers, run `c_whale < ../tests/bluewhale/test_bluewhale.cw` this will prune your docker images, containers, networks, and volumes.
+
+
+NOTE: Commands may not run if you are using PowerShell, for this demonstration, it is preferable to use the Command Prompt.
+
