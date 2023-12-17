@@ -3,22 +3,10 @@
     #include <string.h>
     #include "parser.h"
 
-    #define COLON 4
-    #define ALL 16
-    #define FORCE 17
-    #define STOP 19
-    #define REMOVE 20
-    #define INSPECT 21
-    #define LIST 22
-    #define REMOVE_BASE 24 
-    #define PORT 28
-    #define VOLUME 30
-    #define DETACH 31
-    #define MEMORY 32
+
     #define EXPOSED 36
     #define CONTAINERS 37
     #define IMAGES 38
-    #define NETWORKS 39
     #define VOLUMES 40
 
     void comment();
@@ -75,6 +63,8 @@
 
 "where"                 { printf("Option: saving at the specified location\n"); return WHERE;}
 "image_name"            { printf("Option: naming the image to be created\n"); return IMAGE_NAME;}
+"container_name"        { printf("Option: naming the container"); return CONTAINER_NAME; }
+"network"               { printf("Option: running on networ"); return NETWORK; }
 
 "list_images"          { return LIST_IMAGES; }
 "remove_images"         { return REMOVE_IMAGES; }
